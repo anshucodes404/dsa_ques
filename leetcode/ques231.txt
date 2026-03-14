@@ -1,0 +1,23 @@
+https://leetcode.com/problems/power-of-two/description/
+
+// Method 1, Time Complexity : O(n)
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        int x = 0;
+        double n_double = (double) n;
+        while(n_double > 1.0){
+            n_double = n_double/2.0;
+        }
+        return n_double == 1.0;
+    }
+}
+
+
+// Method 2, Time Complexity: O(1)
+
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        return n > 0 && ((n & (n - 1)) == 0);
+    }
+}
