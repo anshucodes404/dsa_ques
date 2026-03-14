@@ -1,4 +1,5 @@
 https://leetcode.com/contest/biweekly-contest-178/problems/first-unique-even-element/
+https://leetcode.com/problems/first-unique-even-element/description/
 
 class Solution {
     public int firstUniqueEven(int[] nums) {
