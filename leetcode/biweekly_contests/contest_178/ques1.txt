@@ -1,0 +1,23 @@
+https://leetcode.com/contest/biweekly-contest-178/problems/first-unique-even-element/
+
+class Solution {
+    public int firstUniqueEven(int[] nums) {
+        LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
+        for(int num: nums) {
+            if(num % 2 == 0) {
+                if(map.containsKey(num)) {
+                    map.put(num, map.get(num) + 1);
+                } else {
+                    map.put(num, 1);
+                }
+            }
+        }
+
+        for(Map.Entry<Integer, Integer> ele: map.entrySet()) {
+            Integer val = ele.getValue();
+            if(val == 1) return ele.getKey();
+        }
+        return -1;
+        
+    }
+}©leetcode
