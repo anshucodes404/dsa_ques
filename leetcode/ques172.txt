@@ -1,0 +1,41 @@
+https://leetcode.com/problems/factorial-trailing-zeroes/description/
+
+method 1: finding the factorial value and then dividing the value by 10 until and unless a non-zero number remainder comes
+Time Complexity : O(n)
+
+class Solution {
+    public int trailingZeroes(int n) {
+        if(n == 0) return 0;
+        int fact_n = fact(n);
+        System.out.println(fact_n);
+        int count = 0;
+        int rem = 0;
+        while(true) {
+            rem = fact_n % 10;
+            if(rem != 0) return count;
+            count++;
+            fact_n /= 10;
+        }
+    }
+
+    int fact(int n) {
+        if(n == 1) return 1;
+        return n * fact(n - 1);
+    }
+} 
+
+method 2 : we know that when a number is converted into prime numbers then 0 can only be achieved by 5 * 2, also 2 are always larger in number than 5. so counting the total number of 5 gives the number of zero
+
+Time Complexity : O(log n)
+
+class Solution {
+    public int trailingZeroes(int n) {
+        int count = 0;
+        int den = 5;
+        while(den <= n) {
+            count += n/den;
+            den *= 5;
+        }
+        return count;
+    }
+}
