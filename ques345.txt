@@ -1,0 +1,29 @@
+https://leetcode.com/problems/reverse-vowels-of-a-string/description/
+
+class Solution {
+    public String reverseVowels(String s) {
+        int l = 0;
+        int r = s.length() - 1;
+        StringBuilder sb = new StringBuilder(s);
+        while(l < r) {
+            if(isVowel(sb.charAt(l)) && isVowel(sb.charAt(r))){ 
+                swap(sb, l, r);
+                l++;
+                r--;
+            } else if (!isVowel(sb.charAt(l))) l++;
+            else r--;
+            
+        }
+        return sb.toString();
+    }
+
+    boolean isVowel(char ch) {
+        return "aeiouAEIOU".indexOf(ch) != -1;
+    }
+
+    void swap(StringBuilder sb, int l, int r) {
+        char lc = sb.charAt(l);
+        sb.setCharAt(l, sb.charAt(r));
+        sb.setCharAt(r, lc);
+    }
+}
