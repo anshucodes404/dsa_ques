@@ -1,0 +1,17 @@
+https://leetcode.com/problems/max-consecutive-ones/submissions/1981195986/
+
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int maxlen = 0;
+        int len = 0;
+        for (int num : nums) {
+            if (num == 1) {
+                len++;
+                maxlen = Math.max(len, maxlen);
+            } else {
+                len = 0;
+            }
+        }
+        return maxlen;
+    }
+}
