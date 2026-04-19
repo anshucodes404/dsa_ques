@@ -1,0 +1,71 @@
+https://leetcode.com/problems/permutation-in-string/description/
+
+// Method 1 ( very bad )
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int l1 = s1.length();
+        int l2 = s2.length();
+
+        HashMap<Character, Integer> map_org = new HashMap<>();
+        for (char ch : s1.toCharArray()) {
+            map_org.merge(ch, 1, Integer::sum);
+        }
+
+        HashMap<Character, Integer> map_copy = new HashMap<>(map_org);
+
+        int i = 0;
+        int count;
+        while (i + l1 <= l2) {
+            count = 0;
+            String sub = s2.substring(i, i + l1);
+            for (char ch : sub.toCharArray()) {
+                map_copy.merge(ch, 1, (oldValue, newValue) -> oldValue > 0 ? oldValue - newValue : 0);
+            }
+            for(int j = 0; j < l1; j++){
+                if(map_copy.get(s1.charAt(j)) == 0) count++;
+            }
+            if(count == l1) return true;
+            map_copy = new HashMap<>(map_org);
+            i++;
+        }
+        return false;
+    }
+}
+
+
+// Method 2
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        int[] arr1 = new int[26];
+        int[] arr2 = new int[26];
+
+        for (char ch : s1.toCharArray()) {
+            arr1[ch - 'a']++;
+        }
+
+        int window = s1.length();
+        for (int i = 0; i < s2.length(); i++) {
+            arr2[s2.charAt(i) - 'a']++;
+
+            if (i >= window) {
+                arr2[s2.charAt(i - window) - 'a']--;
+            }
+
+            if (isSame(arr1, arr2))
+                return true;
+        }
+        return false;
+
+    }
+
+    private boolean isSame(int[] arr1, int[] arr2) {
+        for (int i = 0; i < 26; i++) {
+            if (arr1[i] != arr2[i])
+                return false;
+        }
+        return true;
+    }
+}
+
