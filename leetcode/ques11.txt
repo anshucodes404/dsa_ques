@@ -20,6 +20,8 @@ class Solution {
 
 // optimised solution
 
+// isme kya kr rhe hain ki jis side ka bhi height kam h us sise ka pointer ko increase kr de rhe hain kyuki jo us height se max volume mil skta tha wo aa gaya h wapas se aur check krne se kuch nhi hoga
+
 class Solution {
     public int maxArea(int[] height) {
         int max = Integer.MIN_VALUE;

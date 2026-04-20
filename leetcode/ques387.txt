@@ -1,0 +1,58 @@
+https://leetcode.com/problems/first-unique-character-in-a-string/description/
+
+
+// method 1 (not efficient : time taking)
+
+class Solution {
+    public int firstUniqChar(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int[] arr = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (!set.add(ch)) {
+                arr[ch - 'a'] = -1;
+            } else
+                arr[ch - 'a'] = 1;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 26; i++) {
+            if(arr[i] == 1) sb.append((char)(i + 'a'));
+        }
+
+        String sbs = sb.toString();
+
+        for(int i = 0; i < s.length(); i++){
+            if(sbs.indexOf(s.charAt(i)) != -1) return i;
+        }
+
+        return -1;
+    }
+}
+
+
+
+// method 2 optimised one
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] arr = new int[26];
+        for(int i = 0; i < s.length(); i++){
+            arr[s.charAt(i) - 'a']++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < 26; i++){
+            if(arr[i] == 1 ) sb.append((char)(i + 'a'));
+        }
+
+        String sbs = sb.toString();
+        for(int i = 0; i < s.length(); i++){
+            if(sbs.indexOf(s.charAt(i)) != -1) return i;
+        }
+        return -1;
+    }
+} 
+
+
+// method 3
