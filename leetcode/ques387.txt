@@ -56,3 +56,26 @@ class Solution {
 
 
 // method 3
+
+
+// in this approach i am recording the first occurence of all characters and a sepearte array for frequencies and in another loop i am traversing the freq array and finding indexes with freq = 1 and then getting the index from idx array
+
+class Solution {
+    public int firstUniqChar(String s) {
+        int[] freq = new int[26];
+        int[] idx = new int[26];
+        int min = Integer.MAX_VALUE;
+
+        Arrays.fill(idx, -1);
+
+        for(int i = 0; i < s.length(); i++){
+            freq[s.charAt(i) - 'a']++;
+            if(idx[s.charAt(i) - 'a'] < 0) idx[s.charAt(i) - 'a'] = i;
+        }
+
+        for(int i = 0; i < 26; i++){
+            if(freq[i] == 1) min = Math.min(min, idx[i]);
+        }
+        return min == Integer.MAX_VALUE ? -1 : min;
+    }
+} 

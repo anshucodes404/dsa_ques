@@ -1,0 +1,39 @@
+https://leetcode.com/problems/next-permutation/description/
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 1;
+        while (i > 0 && nums[i - 1] >= nums[i]) i--;
+       
+        if(i == 0){
+            // reverse the array completely as it is the largest number that is possible
+            reverse(nums, 0, nums.length - 1);
+            return;
+        }
+        
+        i--;
+
+        // if i != 0
+        // swap the ith value with the smallest values > nums[i] from i + 1 to n - 1;
+        int j = nums.length - 1;
+        while( j > i && nums[j] <= nums[i]) j -= 1;
+
+        // swap i and j
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+
+        reverse(nums, i + 1, nums.length - 1);
+
+    }
+
+    private void reverse(int[] arr, int start, int end){
+        while(start < end){
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        start++;
+        end--;
+    }
+    }
+}
