@@ -1,0 +1,51 @@
+
+
+// Brute force Solution
+Creating all the subarrays and checking is sum == k
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int sum;
+        int count = 0;
+
+        for(int i = 0; i < nums.length; i++){
+            sum = 0;
+            sum += nums[i];
+            if(sum == k) count++;
+            for(int j = i + 1; j < nums.length; j++){
+                sum += nums[j];
+                if(sum == k) count++;
+            }
+        }
+        return count;
+    }
+}
+
+
+// Prefix sum Solution
+
+In this we will use a HashMap to store the prefix sum of all the indices and then again traverse the prefix sum array
+
+for example: let say from index 4th to index 7th the sum == k, then prefix_sum[7] - prefix_sum[4] == k; 
+or else, prefix_sum[7] - k = prefi_sum[4] ( should exist in our map as we are putting the sum until now only in our map ), also one thing
+to notice that the required value could come multiple times and all those should be the candidate for counting, so if a sum already exists then we will increase its appearance count
+
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1); // if required is 0 i.e. the nums[i] itself equals to k
+        int sum = 0;
+        int count = 0;
+        for(int num : nums){
+            sum += num;
+
+            if(map.containsKey(sum - k)){
+                count += map.get(sum - k);
+            }
+
+            map.put(sum, map.getOrDefault(sum, 0) + 1); // if sum already apppeared then increase its frequency if not then increase by 1
+
+        }
+        return count;
+    }
+}  
