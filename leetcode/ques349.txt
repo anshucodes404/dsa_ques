@@ -1,0 +1,36 @@
+https://leetcode.com/problems/intersection-of-two-arrays/description/
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        boolean nums1_is_larger = nums1.length > nums2.length;
+        Set<Integer> ans = new HashSet<>();
+        HashSet<Integer> set = new HashSet<>();
+        if (nums1_is_larger) {
+            for (int num : nums2) {
+                set.add(num);
+            }
+        } else {
+            for (int num : nums1) {
+                set.add(num);
+            }
+        }
+
+        if (nums1_is_larger) {
+            for (int num : nums1) {
+                if (set.contains(num))
+                    ans.add(num);
+            }
+        } else {
+            for (int num : nums2) {
+                if (set.contains(num))
+                    ans.add(num);
+            }
+        }
+        int[] array = new int[ans.size()];
+        int i = 0;
+        for (Integer val : ans) {
+            array[i++] = val;
+        }
+        return array;
+    }
+}

@@ -1,0 +1,42 @@
+https://leetcode.com/problems/find-the-duplicate-number/description/
+
+// TODO: find all the techniques to solve this question
+// by modifying the initial array ( violating the constraints )
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        Arrays.sort(nums);
+        int l = 0;
+        int r = 1;
+        while(r < nums.length){
+            if(nums[l] == nums[r]) return nums[l];
+            else {
+                l++;
+                r++;
+            }
+        }
+        return -1;
+    }
+}
+
+
+// using cycle detection: since one number is repeated then it will definitely create a loop like structure if we consider it as linked list ( using floyd's cycle detection method )
+
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+
+        } while (slow != fast);
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+
+        return slow;
+    }
+}

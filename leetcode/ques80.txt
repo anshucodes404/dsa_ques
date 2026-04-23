@@ -1,0 +1,18 @@
+https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+
+
+The solution is that we will not consider the first and second elements as they can be duplicates we will start from index 2 and check if value at k-2 != value at i then we need to copy the ith value to k; 
+k and k-2 counts the frequency as k - ( k - 2) = 2, and if i == k-2 then that means this occurrence is other than the second one and should be skipped
+
+for every i we will check if we have already taken the duplicate or not
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int k = 2;
+        for(int i = 2; i < nums.length; i++){
+            if(nums[i] != nums[k - 2])
+                nums[k++] = nums[i];
+        }
+        return k;
+    }
+}
