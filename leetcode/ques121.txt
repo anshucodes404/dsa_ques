@@ -1,0 +1,37 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+
+// Brute force Solution
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < prices.length; i++){
+            for(int j = i + 1; j < prices.length; j++){
+                int profit = prices[j] - prices[i];
+                max = Math.max(max, profit);
+            }
+        }
+        return max < 0 ? 0 : max;
+    }
+}
+
+
+// Optimised approach
+
+// we need to buy at the lowest price
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        int buy = prices[0];
+        for(int i = 1; i < prices.length; i++){
+            if(buy > prices[i]){
+                buy = prices[i];
+            } else {
+                profit = Math.max(profit, prices[i] - buy);
+            }
+        }
+        return profit;
+    }
+}
