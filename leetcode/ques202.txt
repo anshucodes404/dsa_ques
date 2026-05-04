@@ -1,0 +1,28 @@
+https://leetcode.com/problems/happy-number/
+
+
+// the solution is that if cycle is detected (Floyd's algorithm) then it is not an happy number
+// we can also use hashset for storing the already seen numbers and if insertion is not possible and also fast != 1 then cycle is there
+
+class Solution {
+    public boolean isHappy(int n) {
+        int slow = n;
+        int fast = resultNumber(n);
+        while(fast != 1 && fast != slow){
+            fast = resultNumber(resultNumber(fast));
+            slow = resultNumber(slow);
+        }
+        return fast == 1;
+    }
+
+    private int resultNumber(int n) {
+        int ans = 0;
+        while (n > 0) {
+            int dig = n % 10;
+            ans += dig * dig;
+            n /= 10;
+        }
+        return ans;
+    }
+
+}

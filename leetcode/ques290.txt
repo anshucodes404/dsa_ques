@@ -1,0 +1,48 @@
+https://leetcode.com/problems/word-pattern/
+
+
+// using double hashmap
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] s_arr = s.split(" ");
+        if(pattern.length() != s_arr.length) return false;
+
+        Map<Character, String> ps = new HashMap<>();
+        Map<String, Character> sp = new HashMap<>();
+
+        for(int i = 0; i < pattern.length(); i++){
+            char c = pattern.charAt(i);
+            
+            if(ps.containsKey(c) && !ps.get(c).equals(s_arr[i])) return false;
+            
+            if(sp.containsKey(s_arr[i]) && sp.get(s_arr[i]) != c) return false;
+            
+            ps.put(c, s_arr[i]);
+            sp.put(s_arr[i], c);
+        }
+        return true;
+    }
+}
+
+
+// using a single hashmap
+
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        String[] s_arr = s.split(" ");
+        if(pattern.length() != s_arr.length) return false;
+        Map<String, String> map = new HashMap<>();
+        for(int i = 0; i < pattern.length(); i++){
+            char c = pattern.charAt(i);
+            String key_p = "p" + c;
+            String key_w = "w" + s_arr[i];
+            if(map.containsKey(key_p) && !map.get(key_p).equals(s_arr[i])) return false;
+            
+            if(map.containsKey(key_w) && !map.get(key_w).equals("" + c)) return false;
+            
+            map.put(key_p, s_arr[i]);
+            map.put(key_w, "" + c);
+        }
+        return true;
+    }
+}
