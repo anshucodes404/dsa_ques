@@ -1,0 +1,25 @@
+https://leetcode.com/problems/continuous-subarray-sum/description/
+
+if sum[i] % k == sum[j] % k then (sum[i] - sum[j]) % k == 0;
+
+so here we are finding two indexes which are having same remainder and idx difference is greater than 2
+
+class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        map.put(0, -1);  // for handling all the sums which are directly divisible by k (no need of any other idx)
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+
+            int rem = sum % k;
+
+            if(map.containsKey(rem)){
+                if(i - map.get(rem) >= 2) return true;
+            } else {
+                map.put(rem, i);
+            }
+        }
+        return false;
+    }
+}
