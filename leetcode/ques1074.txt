@@ -1,0 +1,37 @@
+https://leetcode.com/problems/number-of-submatrices-that-sum-to-target/
+
+class Solution {
+    public int numSubmatrixSumTarget(int[][] M, int k) {
+        // first of all finding the prefix sum of each rows
+        int m = M.length; // rows
+        int n = M[0].length; // cols
+
+        for(int i = 0; i < m; i++){
+            for(int j = 1; j < n; j++){
+                M[i][j] += M[i][j - 1];
+            }
+        }
+
+        // now fixing two cols and then taking the prefix sum vertically making it as a 1D array and the sum b/w two cols will be calculated by subtracting the prefix sums of each row
+        int count = 0;
+        for(int left = 0; left < n; left++){
+            for(int right = left; right < n; right++){
+                // as now both cols have been fixed now traversing vertically also calculating the sum b/w the rows
+
+                int sum = 0; // vertical sum
+                Map<Integer, Integer> map = new HashMap<>();
+                map.put(0, 1);
+                for(int row = 0; row < m; row++){
+                    sum += M[row][right] - (left > 0 ? M[row][left - 1] : 0);
+                    
+                    count += map.getOrDefault(sum - k, 0);
+
+                    map.put(sum, map.getOrDefault(sum, 0) + 1);
+                }
+            }
+        }
+        return count;
+    }
+}
+
+// we can also fix rows and traverse over cols
